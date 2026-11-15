@@ -1,0 +1,21 @@
+# MCA Sentinel Log Waste Reduction Engine
+# Usage:
+#   docker compose up --build
+#   Open http://localhost:8501
+
+services:
+  sentinel-waste-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mca-sentinel-waste-engine:latest
+    container_name: mca-sentinel-waste-engine
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+    environment:
+      STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
+      # Optional: pre-seed default $/GB via env if you extend the app later.
+      # DEFAULT_COST_PER_GB_USD: "2.76"
+    # Live Service Principal secrets should be entered in the Streamlit UI
+    # (session-only) or injected via a secrets manager — do not hardcode here.
